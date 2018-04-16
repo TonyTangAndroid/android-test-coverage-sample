@@ -1,0 +1,1 @@
+# android-test-coverage-sample

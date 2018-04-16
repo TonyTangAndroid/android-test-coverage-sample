@@ -1,0 +1,69 @@
+apply plugin: 'com.android.application'
+
+android {
+    buildToolsVersion "27.0.3"
+    compileSdkVersion 27
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
+        applicationId "com.example.harliedharma.android_test_coverage_sample"
+        minSdkVersion 16
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        debug {
+
+        }
+        staging {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    signingConfigs {
+        debug {
+            storeFile file(KSTOREPATH)
+            keyAlias KEYALS
+            storePassword KSTOREPWD
+            keyPassword KEYPWD
+        }
+        staging {
+            storeFile file(KSTOREPATH)
+            keyAlias KEYALS
+            storePassword KSTOREPWD
+            keyPassword KEYPWD
+        }
+        release {
+            storeFile file(KSTOREPATH)
+            keyAlias KEYALS
+            storePassword KSTOREPWD
+            keyPassword KEYPWD
+        }
+    }
+
+    flavorDimensions "normal"
+
+    productFlavors {
+        lollipop {
+            minSdkVersion 21
+        }
+        general {
+            minSdkVersion 16
+        }
+    }
+}
+
+dependencies {
+    implementation project(':core')
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
