@@ -92,8 +92,8 @@ def main():
             ET.SubElement(ET.SubElement(tr_total, "td"), "b").text = "{0} of {1} (-)".format(missed, total)
         pass
 
-    ET.ElementTree(html).write(RESULT_DIR + '/report.html', encoding='utf8', method='html')
-    print("Report generated: " + RESULT_DIR + '/report.html')
+    ET.ElementTree(html).write(RESULT_DIR + '/index.html', encoding='utf8', method='html')
+    print("Report generated: " + RESULT_DIR + '/index.html')
     return
 
 if __name__ == "__main__":
