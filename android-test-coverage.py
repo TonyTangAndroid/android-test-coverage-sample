@@ -27,27 +27,29 @@ def main():
     if os.path.exists(RESULT_DIR):
         shutil.rmtree(RESULT_DIR)
     os.makedirs(RESULT_DIR)
-    
+
+    print("Analyze coverage report...")
     coverages = {}
-    for report_csv in glob.glob(PROJECT_ROOT + "/*/build/reports/jacoco/*/jacoco.csv"):
+    for report_csv in glob.glob(PROJECT_ROOT + "/*/build/reports/jacoco/" + (PRODUCT_FLAVOR[0].lower() + PRODUCT_FLAVOR[1:]) + "/jacoco.csv"):
         report_dir = os.path.dirname(report_csv)
         module = None
-        
+
         with open(report_csv) as csvfile:
             header = next(csv.reader(csvfile))
             data = dict((h, 0) for h in header[3:])
             csvfile.seek(0)
-            
+
             reader = csv.DictReader(csvfile)
 
             for row in reader:
                 if module is None:
                     module = row["GROUP"]
+                    print(module)
                 for key in data:
                     data[key] += int(row[key])
         if module is not None:
             coverages[module] = data
-            shutil.copytree(report_dir, RESULT_DIR + "/" + module)
+            shutil.move(report_dir, RESULT_DIR + "/" + module)
 
     header_list = ["MODULE", "INSTRUCTION", "BRANCH", "LINE", "COMPLEXITY", "METHOD"]
 
@@ -61,7 +63,7 @@ def main():
 
     for header in header_list:
         ET.SubElement(tr_header, "th").text = header + (" MISSED (COVERAGE)" if header != "MODULE" else "")
-    
+
     total_cov = dict((data_type, [0, 0]) for data_type in header_list[1:])
     for module in sorted(coverages):
         data = coverages[module]
@@ -91,6 +93,7 @@ def main():
         pass
 
     ET.ElementTree(html).write(RESULT_DIR + '/report.html', encoding='utf8', method='html')
+    print("Report generated: " + RESULT_DIR + '/report.html')
     return
 
 if __name__ == "__main__":
