@@ -1,2 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.core" />
+    package="com.example.core">
+
+    <application>
+        <activity android:name=".CoreActivity"></activity>
+    </application>
+
+</manifest>
