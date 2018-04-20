@@ -14,4 +14,9 @@ public class ExampleUnitTest {
     public void addition_isCorrect() throws Exception {
         assertEquals(4, 2 + 2);
     }
+
+    @Test
+    public void test_squareArea() throws Exception {
+        assertEquals( 100.0, new MainActivity().calculateSquareArea(10), 1e-7 );
+    }
 }
