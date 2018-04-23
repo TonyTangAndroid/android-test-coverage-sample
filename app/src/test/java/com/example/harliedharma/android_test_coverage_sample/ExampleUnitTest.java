@@ -16,7 +16,8 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void test_squareArea() throws Exception {
-        assertEquals( 100.0, new MainActivity().calculateSquareArea(10), 1e-7 );
+    public void test_Area() throws Exception {
+        assertEquals( 100.0, new MainActivity().calculateSquareArea(10.0), 1e-7 );
+        assertEquals(Math.PI * 5.0 * 5.0, new MainActivity().calculateCircleArea(5.0), 1e-7);
     }
 }
